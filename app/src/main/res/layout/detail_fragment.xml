@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/id_detail_collap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/design_default_color_primary"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/app_name">
+
+            <ImageView
+                android:id="@+id/id_detail_img"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_menu_book"
+                app:layout_collapseMode="parallax"
+                app:srcCompat="@drawable/ic_broken_image"
+                tools:ignore="ContentDescription" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/id_detail_netscroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/id_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:text="Detail"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/id_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:lineSpacingExtra="8sp"
+                android:text="Writer\t\t\t\t\t\t\t\t\t:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/id_detail"
+                app:layout_constraintTop_toBottomOf="@+id/id_detail" />
+
+            <TextView
+                android:id="@+id/id_writer_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="8dp"
+                android:lineSpacingExtra="8sp"
+                android:singleLine="true"
+                android:text="no name"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_writer"
+                app:layout_constraintEnd_toEndOf="@+id/id_detail"
+                app:layout_constraintStart_toEndOf="@+id/id_writer"
+                app:layout_constraintTop_toTopOf="@+id/id_writer" />
+
+            <TextView
+                android:id="@+id/id_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8sp"
+                android:text="Publisher\t\t\t\t:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/id_writer"
+                app:layout_constraintTop_toBottomOf="@+id/id_writer" />
+
+            <TextView
+                android:id="@+id/id_publisher_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="8dp"
+                android:lineSpacingExtra="8sp"
+                android:singleLine="true"
+                android:text="no name"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_publisher"
+                app:layout_constraintEnd_toEndOf="@+id/id_writer_data"
+                app:layout_constraintStart_toEndOf="@+id/id_publisher"
+                app:layout_constraintTop_toTopOf="@+id/id_publisher" />
+
+            <TextView
+                android:id="@+id/id_publication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8sp"
+                android:text="Publication\t\t:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/id_publisher"
+                app:layout_constraintTop_toBottomOf="@+id/id_publisher" />
+
+            <TextView
+                android:id="@+id/id_publication_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="8dp"
+                android:lineSpacingExtra="8sp"
+                android:singleLine="true"
+                android:text="2021"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_publication"
+                app:layout_constraintEnd_toEndOf="@+id/id_publisher_data"
+                app:layout_constraintStart_toEndOf="@+id/id_publication"
+                app:layout_constraintTop_toTopOf="@+id/id_publication" />
+
+            <TextView
+                android:id="@+id/id_lang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8sp"
+                android:text="Language\t\t\t:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/id_publication"
+                app:layout_constraintTop_toBottomOf="@+id/id_publication" />
+
+            <TextView
+                android:id="@+id/id_lang_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="8dp"
+                android:lineSpacingExtra="8sp"
+                android:singleLine="true"
+                android:text="English"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/id_lang"
+                app:layout_constraintEnd_toEndOf="@+id/id_publication_data"
+                app:layout_constraintStart_toEndOf="@+id/id_lang"
+                app:layout_constraintTop_toTopOf="@+id/id_lang" />
+
+            <TextView
+                android:id="@+id/id_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="8sp"
+                android:text="Description\t:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/id_lang"
+                app:layout_constraintTop_toBottomOf="@+id/id_lang" />
+
+            <TextView
+                android:id="@+id/id_detail_description_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="8dp"
+                android:lineSpacingExtra="8sp"
+
+                android:text="udinjskadfafhdkajlchnahkldfhahacshjafhahxlknoaieoiaheanjkasdfh ajkshvahfahkfdjhnadhfascjakcnhfas"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/id_lang_data"
+                app:layout_constraintStart_toEndOf="@+id/id_detail_description"
+                app:layout_constraintTop_toBottomOf="@+id/id_lang_data" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:id="@+id/expandable_fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|end">
+
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overlay_color="#36000000"
+            app:overlay_alpha="0.75"
+            app:overlay_openingAnimationDurationMs="1000" />
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:id="@+id/expandable_fab"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:efab_color="@color/design_default_color_primary"
+            app:efab_icon="@drawable/ic_baseline_add_24"
+            app:efab_iconAnimationRotationDeg="-225"
+            app:efab_closingAnticipateTension="0" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/id_favorite_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_favorite_border_btn"
+            app:fab_color="@color/purple_200"
+            app:label_text="Favorite" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/id_read_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="#5283F5"
+            app:fab_icon="@drawable/ic_library_books"
+            app:label_text="Read" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/id_share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="#007F00"
+            app:fab_icon="@drawable/ic_share"
+            app:label_text="Share" />
+
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

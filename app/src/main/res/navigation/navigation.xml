@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/id_home_menu">
+
+    <fragment
+        android:id="@+id/id_home_menu"
+        android:name="com.app.freebook.openlib.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_home2_to_favoriteFragment"
+            app:destination="@id/id_favorite_menu" />
+        <action
+            android:id="@+id/action_id_home_menu_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/id_favorite_menu"
+        android:name="com.app.freebook.favorite.favorite.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/favorite_fragment">
+        <action
+            android:id="@+id/action_id_favorite_menu_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.app.freebook.openlib.ui.detail.DetailFragment"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" />
+</navigation>

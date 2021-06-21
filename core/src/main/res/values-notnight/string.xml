@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Open and Read</string>
+    <string name="no_connection" translatable="false">No Internet!!!</string>
+    <string name="title_favorite" translatable="false">Favorite</string>
+</resources>
