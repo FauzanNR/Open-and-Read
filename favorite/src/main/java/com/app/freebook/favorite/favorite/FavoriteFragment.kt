@@ -36,7 +36,7 @@ class FavoriteFragment : Fragment() {
             )
         )
 
-        val gridCount = resources.getInteger(R.integer.grid_column_count)
+        val gridCount = resources.getInteger(com.app.freebook.core.R.integer.grid_column_count)
         binding.idRecyclerBookFav.apply {
             layoutManager = GridLayoutManager(context, gridCount)
             adapter = favoriteAdapter
