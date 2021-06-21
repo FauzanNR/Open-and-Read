@@ -45,16 +45,16 @@ abstract class FragmentModel : Fragment() {
     abstract fun onDisconnected() //block process
     abstract fun onConnected() //process
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         requireActivity().registerReceiver(
             connectionBroadcastReceiver,
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         requireActivity().unregisterReceiver(connectionBroadcastReceiver)
     }
 }

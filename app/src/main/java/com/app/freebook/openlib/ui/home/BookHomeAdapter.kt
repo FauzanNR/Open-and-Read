@@ -16,7 +16,7 @@ class BookHomeAdapter : RecyclerView.Adapter<BookHomeAdapter.BookViewHolder>() {
     private var dataBook = ArrayList<Book>()
 
     companion object {
-        val EXTRA_DETAIL = "EXTRA_DETAIL"
+        const val EXTRA_DETAIL = "EXTRA_DETAIL"
     }
 
     fun setDataAdapter(data: List<Book>) {
@@ -25,7 +25,7 @@ class BookHomeAdapter : RecyclerView.Adapter<BookHomeAdapter.BookViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class BookViewHolder(private val item: ItemCardBinding) :
+    inner class BookViewHolder(private var item: ItemCardBinding) :
         RecyclerView.ViewHolder(item.root) {
         fun bind(book: Book) {
             item.apply {

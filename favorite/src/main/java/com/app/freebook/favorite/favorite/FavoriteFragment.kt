@@ -14,13 +14,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class FavoriteFragment : Fragment() {
-    private lateinit var binding: FavoriteFragmentBinding
+    private var binding: FavoriteFragmentBinding? = null
     private val viewModel: FavoriteViewModel by viewModel()
-    private val favoriteAdapter: FavoriteAdapter by lazy {
-        FavoriteAdapter().apply {
-            notifyDataSetChanged()
-        }
-    }
+    private val favoriteAdapter = FavoriteAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +31,13 @@ class FavoriteFragment : Fragment() {
                 false
             )
         )
-
         val gridCount = resources.getInteger(com.app.freebook.core.R.integer.grid_column_count)
-        binding.idRecyclerBookFav.apply {
-            layoutManager = GridLayoutManager(context, gridCount)
+        favoriteAdapter.notifyDataSetChanged()
+        binding?.idRecyclerBookFav?.apply {
+            layoutManager = GridLayoutManager(requireContext(), gridCount)
             adapter = favoriteAdapter
         }
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,15 +45,21 @@ class FavoriteFragment : Fragment() {
         observeData()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.idRecyclerBookFav?.adapter = null
+        binding = null
+    }
+
     private fun observeData() {
         if (this.isAdded) {
-            binding.idProgressBookFav.visibility = View.VISIBLE
+            binding?.idProgressBookFav?.visibility = View.VISIBLE
             viewModel.getAllBook().observe(viewLifecycleOwner, {
                 when (it) {
                     is com.app.freebook.core.data.Resource.Success -> {
-                        binding.idTextInfoBookFav.visibility = View.INVISIBLE
-                        binding.idProgressBookFav.visibility = View.INVISIBLE
-                        binding.idRecyclerBookFav.visibility = View.VISIBLE
+                        binding?.idTextInfoBookFav?.visibility = View.INVISIBLE
+                        binding?.idProgressBookFav?.visibility = View.INVISIBLE
+                        binding?.idRecyclerBookFav?.visibility = View.VISIBLE
                         it.data?.let { it1 -> favoriteAdapter.setDataAdapter(it1) }
                     }
                     is com.app.freebook.core.data.Resource.Error -> Log.d(
@@ -65,9 +67,9 @@ class FavoriteFragment : Fragment() {
                         it.message.toString()
                     )
                     else -> {
-                        binding.idRecyclerBookFav.visibility = View.INVISIBLE
-                        binding.idProgressBookFav.visibility = View.INVISIBLE
-                        binding.idTextInfoBookFav.visibility = View.VISIBLE
+                        binding?.idRecyclerBookFav?.visibility = View.INVISIBLE
+                        binding?.idProgressBookFav?.visibility = View.INVISIBLE
+                        binding?.idTextInfoBookFav?.visibility = View.VISIBLE
                         Log.d("observeData", "Else: " + it.data.toString())
                     }
                 }

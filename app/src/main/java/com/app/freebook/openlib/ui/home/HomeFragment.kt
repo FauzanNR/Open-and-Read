@@ -14,13 +14,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : FragmentModel() {
 
-    lateinit var binding: HomeFragmentBinding
+    private var binding: HomeFragmentBinding? = null
     private val viewModel: HomeViewModel by viewModel()
-    private val bookHomeAdapter: BookHomeAdapter by lazy {
-        BookHomeAdapter().apply {
-            notifyDataSetChanged()
-        }
-    }
+    private val bookHomeAdapter = BookHomeAdapter()
 
     companion object {
         var isConnected = false
@@ -28,8 +24,8 @@ class HomeFragment : FragmentModel() {
 
     override fun onDisconnected() {
 //        if (this.isAdded && this.isVisible) {
-        binding.idTextInfoBook.visibility = View.VISIBLE
-        binding.idProgressBook.visibility = View.GONE
+        binding?.idTextInfoBook?.visibility = View.VISIBLE
+        binding?.idProgressBook?.visibility = View.GONE
 //        }
         isConnected = false
     }
@@ -48,33 +44,38 @@ class HomeFragment : FragmentModel() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?{
         binding =
             HomeFragmentBinding.bind(inflater.inflate(R.layout.home_fragment, container, false))
         val gridCount = resources.getInteger(R.integer.grid_column_count)
-        binding.idRecyclerBook.apply {
-            layoutManager = GridLayoutManager(context, gridCount)
+        bookHomeAdapter.notifyDataSetChanged()
+        binding?.idRecyclerBook?.apply {
+            layoutManager = GridLayoutManager(requireContext(), gridCount)
             adapter = bookHomeAdapter
         }
 
-        return binding.root
+        return binding?.root
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.idRecyclerBook?.adapter = null
+        binding = null
+    }
     private fun setData() {
         if (this.isAdded) {
             Log.d("IsAdded", "HomeFragment")
-            binding.idTextInfoBook.visibility = View.INVISIBLE
+            binding?.idTextInfoBook?.visibility = View.INVISIBLE
             viewModel.getAllBook().observe(viewLifecycleOwner, {
                 when (it) {
-                    is com.app.freebook.core.data.Resource.Loading -> binding.idProgressBook.visibility =
+                    is com.app.freebook.core.data.Resource.Loading -> binding?.idProgressBook?.visibility =
                         View.VISIBLE
                     is com.app.freebook.core.data.Resource.Error -> {
-                        binding.idTextInfoBook.visibility = View.VISIBLE
-                        binding.idProgressBook.visibility = View.GONE
+                        binding?.idTextInfoBook?.visibility = View.VISIBLE
+                        binding?.idProgressBook?.visibility = View.GONE
                     }
                     is com.app.freebook.core.data.Resource.Success -> {
-                        binding.idProgressBook.visibility = View.GONE
+                        binding?.idProgressBook?.visibility = View.GONE
                         it.data?.let { it1 -> bookHomeAdapter.setDataAdapter(it1) }
                     }
                 }
