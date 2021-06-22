@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.freebook.core.ui.FragmentModel
 import com.app.freebook.openlib.R
@@ -19,26 +20,23 @@ class HomeFragment : FragmentModel() {
     private val viewModel: HomeViewModel by viewModel()
     private val bookHomeAdapter = BookHomeAdapter()
 
-    companion object {
-        var isConnected = false
-    }
-
     override fun onDisconnected() {
-//        if (this.isAdded && this.isVisible) {
-        binding?.idTextInfoBook?.visibility = View.VISIBLE
-        binding?.idProgressBook?.visibility = View.GONE
-//        }
-        isConnected = false
+        if (binding?.root?.isVisible == true) {
+            binding?.idTextInfoBook?.visibility = View.VISIBLE
+            binding?.idProgressBook?.visibility =
+                View.GONE
+        }
     }
 
     override fun onConnected() {
-        isConnected = true
         setData()
     }
 
     override fun onResume() {
         super.onResume()
-        if (isConnected) setData()
+        if (isConnected && binding?.root?.isVisible == true) {
+            setData()
+        }
     }
 
     override fun onCreateView(
@@ -67,9 +65,11 @@ class HomeFragment : FragmentModel() {
     }
 
     private fun setData() {
-        if (this.isAdded) {
+        if (binding?.root?.isVisible == true && this@HomeFragment.isAdded) {
             Log.d("IsAdded", "HomeFragment")
             binding?.idTextInfoBook?.visibility = View.INVISIBLE
+            binding?.idProgressBook?.visibility =
+                View.VISIBLE
             viewModel.getAllBook().observe(viewLifecycleOwner, {
                 when (it) {
                     is com.app.freebook.core.data.Resource.Loading -> binding?.idProgressBook?.visibility =
@@ -81,6 +81,10 @@ class HomeFragment : FragmentModel() {
                     is com.app.freebook.core.data.Resource.Success -> {
                         binding?.idProgressBook?.visibility = View.GONE
                         it.data?.let { it1 -> bookHomeAdapter.setDataAdapter(it1) }
+                    }
+                    else -> {
+                        binding?.idTextInfoBook?.visibility = View.VISIBLE
+                        binding?.idProgressBook?.visibility = View.GONE
                     }
                 }
             })

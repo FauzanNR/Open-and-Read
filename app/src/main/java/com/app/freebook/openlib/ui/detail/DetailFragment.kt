@@ -24,10 +24,10 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var binding: DetailFragmentBinding
     private val viewModel: DetailViewModel by viewModel()
+    private var detail: Book? = null
 
     companion object {
         private lateinit var identifier: String
-        private lateinit var detail: Book
         private var isEmpty = false
     }
 
@@ -98,17 +98,17 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
                                                     )
                                                     is com.app.freebook.core.data.Resource.Success -> {
                                                         detail = itBook.data as Book
-                                                        identifier = detail.identifier.toString()
-                                                        idDetailCollap.title = detail.title
-                                                        idWriterData.text = detail.creator
-                                                        idPublisherData.text = detail.publisher
-                                                        idPublicationData.text = detail.year
-                                                        idLangData.text = detail.language
+                                                        identifier = detail?.identifier.toString()
+                                                        idDetailCollap.title = detail?.title
+                                                        idWriterData.text = detail?.creator
+                                                        idPublisherData.text = detail?.publisher
+                                                        idPublicationData.text = detail?.year
+                                                        idLangData.text = detail?.language
                                                         idDetailDescriptionData.text =
-                                                            detail.description
+                                                            detail?.description
                                                         context?.let { it1 ->
                                                             Glide.with(it1.applicationContext)
-                                                                .load("https://archive.org/download/${detail.identifier}/page/cover_w160.jpg")
+                                                                .load("https://archive.org/download/${detail?.identifier}/page/cover_w160.jpg")
                                                                 .apply(RequestOptions())
                                                                 .error(R.drawable.ic_broken_image)
                                                                 .into(idDetailImg)
@@ -134,12 +134,16 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
 
     private fun addOrDelete() {
         if (!TextUtils.isEmpty(identifier)) {
-            if (checkData(identifier)) {
-                viewModel.addBook(detail)
-                Toast.makeText(context, "Book added to favorite!", Toast.LENGTH_SHORT).show()
-            } else {
-                viewModel.deleteBook(identifier)
-                Toast.makeText(context, "Book deleted to favorite!", Toast.LENGTH_SHORT).show()
+            if (detail != null) {
+                if (checkData(identifier)) {
+                    viewModel.addBook(detail!!)
+                    Toast.makeText(context, "Book added to favorite!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    viewModel.deleteBook(identifier)
+                    Toast.makeText(context, "Book deleted to favorite!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }

@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.app.freebook.core.ui.FragmentModel
 import com.app.freebook.favorite.R
 import com.app.freebook.favorite.databinding.FavoriteFragmentBinding
 import com.app.freebook.favorite.di.favoriteModule
@@ -14,10 +14,13 @@ import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : FragmentModel() {
     private var binding: FavoriteFragmentBinding? = null
     private val viewModel: FavoriteViewModel by viewModel()
     private val favoriteAdapter = FavoriteAdapter()
+    override fun onDisconnected() {}
+
+    override fun onConnected() {}
 
     override fun onCreateView(
         inflater: LayoutInflater,
