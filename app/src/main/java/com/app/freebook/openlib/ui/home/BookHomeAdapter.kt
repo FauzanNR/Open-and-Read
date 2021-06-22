@@ -33,9 +33,10 @@ class BookHomeAdapter : RecyclerView.Adapter<BookHomeAdapter.BookViewHolder>() {
                 idItemDescription.text =
                     if (book.description == null) "No description!!!" else book.description
                 idItemYear.text = book.year
-                Glide.with(itemView.context.applicationContext)
-                    .load("https://archive.org/download/${book.identifier}/page/cover_w160.jpg")
+                Glide.with(itemView.context)
+                    .load("https://archive.org/download/${book.identifier}/page/cover_w150.jpg")
                     .apply(RequestOptions())
+                    .placeholder(R.drawable.ic_menu_book)
                     .error(R.drawable.ic_broken_image)
                     .into(idItemImg)
 
@@ -60,5 +61,4 @@ class BookHomeAdapter : RecyclerView.Adapter<BookHomeAdapter.BookViewHolder>() {
     }
 
     override fun getItemCount(): Int = dataBook.size
-
 }

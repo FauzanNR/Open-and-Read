@@ -23,6 +23,7 @@
             app:title="@string/app_name">
 
             <ImageView
+                android:background="#2AC6C6C6"
                 android:id="@+id/id_detail_img"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"

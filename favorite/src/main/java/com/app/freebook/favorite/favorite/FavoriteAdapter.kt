@@ -31,8 +31,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoViewHolder>() {
                     if (book.description == null) "No description!!!" else book.description
                 idItemYear.text = book.year
                 Glide.with(itemView.context)
-                    .load("https://archive.org/download/${book.identifier}/page/cover_w160.jpg")
+                    .load("https://archive.org/download/${book.identifier}/page/cover_w150.jpg")
                     .apply(RequestOptions())
+                    .placeholder(R.drawable.ic_menu_book)
+                    .error(R.drawable.ic_broken_image)
                     .into(idItemImg)
 
                 itemView.setOnClickListener {

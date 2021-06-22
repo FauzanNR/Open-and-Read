@@ -51,7 +51,7 @@ class FavoriteFragment : FragmentModel() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Glide.get(this.requireContext().applicationContext)
+        Glide.get(this.requireContext())
             .clearMemory()
         binding?.idRecyclerBookFav?.adapter = null
         binding = null

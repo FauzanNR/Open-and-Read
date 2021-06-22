@@ -58,7 +58,7 @@ class HomeFragment : FragmentModel() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Glide.get(this.requireContext().applicationContext)
+        Glide.get(this.requireContext())
             .clearMemory()
         binding?.idRecyclerBook?.adapter = null
         binding = null

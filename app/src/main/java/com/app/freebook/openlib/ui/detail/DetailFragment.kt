@@ -22,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailFragment : FragmentModel(), View.OnClickListener {
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var binding: DetailFragmentBinding
+    private var binding: DetailFragmentBinding? = null
     private val viewModel: DetailViewModel by viewModel()
     private var detail: Book? = null
 
@@ -38,13 +38,13 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
     ): View? {
         binding =
             DetailFragmentBinding.bind(inflater.inflate(R.layout.detail_fragment, container, false))
-        binding.apply {
+        binding?.apply {
             idFavoriteBtn.setOnClickListener(this@DetailFragment)
             idShareBtn.setOnClickListener(this@DetailFragment)
             idReadBtn.setOnClickListener(this@DetailFragment)
             expandableFab.setOnClickListener(this@DetailFragment)
         }
-        return binding.root
+        return binding?.root
     }
 
     override fun onDisconnected() {
@@ -65,7 +65,8 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Glide.get(this.requireContext().applicationContext)
+        binding = null
+        Glide.get(this.requireContext())
             .clearMemory()
         bottomNavigationView.visibility = View.VISIBLE
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -79,7 +80,7 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
                         val data = it.getString(EXTRA_DETAIL)
                         when {
                             it.containsKey(EXTRA_DETAIL) -> {
-                                binding.apply {
+                                binding?.apply {
                                     if (data != null) {
                                         viewModel.getDetail(data, s)
                                             .observe(viewLifecycleOwner, { itBook ->
@@ -107,9 +108,10 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
                                                         idDetailDescriptionData.text =
                                                             detail?.description
                                                         context?.let { it1 ->
-                                                            Glide.with(it1.applicationContext)
+                                                            Glide.with(it1)
                                                                 .load("https://archive.org/download/${detail?.identifier}/page/cover_w160.jpg")
                                                                 .apply(RequestOptions())
+                                                                .placeholder(R.drawable.ic_menu_book)
                                                                 .error(R.drawable.ic_broken_image)
                                                                 .into(idDetailImg)
                                                         }
@@ -159,9 +161,9 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
 
     private fun changeIcon(b: Boolean) {
         if (b) {
-            binding.idFavoriteBtn.setImageResource(R.drawable.ic_favorite_border_btn)
+            binding?.idFavoriteBtn?.setImageResource(R.drawable.ic_favorite_border_btn)
         } else {
-            binding.idFavoriteBtn.setImageResource(R.drawable.ic_favorite_btn)
+            binding?.idFavoriteBtn?.setImageResource(R.drawable.ic_favorite_btn)
         }
     }
 
@@ -182,13 +184,13 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            binding.idFavoriteBtn -> addOrDelete()
+            binding?.idFavoriteBtn -> addOrDelete()
 
-            binding.idShareBtn -> share()
+            binding?.idShareBtn -> share()
 
-            binding.idReadBtn -> readBook()
+            binding?.idReadBtn -> readBook()
 
-            binding.expandableFab -> checkData(identifier)
+            binding?.expandableFab -> checkData(identifier)
         }
     }
 }

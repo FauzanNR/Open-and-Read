@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="117dp"
-    app:cardBackgroundColor="#6AC6C6C6"
     android:layout_height="230dp"
     android:layout_margin="1.5dp"
     android:gravity="center"
@@ -16,6 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:background="#2AC6C6C6"
             android:id="@+id/id_item_img"
             android:layout_width="0dp"
             android:layout_height="160dp"
@@ -23,7 +23,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="book" />
 
         <TextView
             android:id="@+id/id_item_year"
