@@ -33,9 +33,10 @@ class BookHomeAdapter : RecyclerView.Adapter<BookHomeAdapter.BookViewHolder>() {
                 idItemDescription.text =
                     if (book.description == null) "No description!!!" else book.description
                 idItemYear.text = book.year
-                Glide.with(itemView.context)
+                Glide.with(itemView.context.applicationContext)
                     .load("https://archive.org/download/${book.identifier}/page/cover_w160.jpg")
                     .apply(RequestOptions())
+                    .error(R.drawable.ic_broken_image)
                     .into(idItemImg)
 
                 itemView.setOnClickListener {

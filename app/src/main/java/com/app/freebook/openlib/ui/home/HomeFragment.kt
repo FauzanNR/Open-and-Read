@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.app.freebook.core.ui.FragmentModel
 import com.app.freebook.openlib.R
 import com.app.freebook.openlib.databinding.HomeFragmentBinding
+import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -44,7 +45,7 @@ class HomeFragment : FragmentModel() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View? {
         binding =
             HomeFragmentBinding.bind(inflater.inflate(R.layout.home_fragment, container, false))
         val gridCount = resources.getInteger(R.integer.grid_column_count)
@@ -59,9 +60,12 @@ class HomeFragment : FragmentModel() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Glide.get(this.requireContext().applicationContext)
+            .clearMemory()
         binding?.idRecyclerBook?.adapter = null
         binding = null
     }
+
     private fun setData() {
         if (this.isAdded) {
             Log.d("IsAdded", "HomeFragment")

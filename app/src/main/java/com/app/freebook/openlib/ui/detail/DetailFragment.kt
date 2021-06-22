@@ -65,6 +65,8 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Glide.get(this.requireContext().applicationContext)
+            .clearMemory()
         bottomNavigationView.visibility = View.VISIBLE
         (activity as AppCompatActivity).supportActionBar?.show()
     }
@@ -105,7 +107,7 @@ class DetailFragment : FragmentModel(), View.OnClickListener {
                                                         idDetailDescriptionData.text =
                                                             detail.description
                                                         context?.let { it1 ->
-                                                            Glide.with(it1)
+                                                            Glide.with(it1.applicationContext)
                                                                 .load("https://archive.org/download/${detail.identifier}/page/cover_w160.jpg")
                                                                 .apply(RequestOptions())
                                                                 .error(R.drawable.ic_broken_image)

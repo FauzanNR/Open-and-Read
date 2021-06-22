@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.app.freebook.favorite.R
 import com.app.freebook.favorite.databinding.FavoriteFragmentBinding
 import com.app.freebook.favorite.di.favoriteModule
+import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
@@ -47,6 +48,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Glide.get(this.requireContext().applicationContext)
+            .clearMemory()
         binding?.idRecyclerBookFav?.adapter = null
         binding = null
     }
