@@ -1,4 +1,4 @@
-package com.app.freebook.openlib
+package com.app.freebook.openlib.di
 
 import com.app.freebook.core.domain.usecase.BookInteractor
 import com.app.freebook.core.domain.usecase.IBookUseCase
