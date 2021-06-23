@@ -8,6 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okio.IOException
+import java.net.ConnectException
 
 class RemoteDataSource(private val service: ApiService) {
     fun getAllBooks(): Flow<com.app.freebook.core.data.Resource<List<Book>>> = flow {
@@ -35,9 +37,10 @@ class RemoteDataSource(private val service: ApiService) {
                 )
             }
         } catch (e: Exception) {
-            val responseData = service.getListBook()
-            val dataList = responseData.body()?.response?.docs
-            Log.d("RemoteResponse", dataList.toString())
+            Log.d("RemoteResponse", e.toString())
+        } catch (e: ConnectException) {
+            Log.d("RemoteResponse", e.toString())
+        } catch (e: IOException) {
             Log.d("RemoteResponse", e.toString())
         }
     }.flowOn(Dispatchers.IO)
@@ -70,9 +73,10 @@ class RemoteDataSource(private val service: ApiService) {
                     )
                 }
             } catch (e: Exception) {
-                val responseDetail = service.getDetailBook(identifier)
-                val data = responseDetail.body()?.metadata
-                Log.d("RemoteResponse", data.toString())
+                Log.d("RemoteResponse", e.toString())
+            } catch (e: ConnectException) {
+                Log.d("RemoteResponse", e.toString())
+            } catch (e: IOException) {
                 Log.d("RemoteResponse", e.toString())
             }
         }.flowOn(Dispatchers.IO)
